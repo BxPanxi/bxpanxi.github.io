@@ -121,6 +121,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            background-color: #333; /* Placeholder for missing thumbnail */
         }
         
         .project-card .project-image .play-icon {
@@ -202,16 +203,16 @@
             transform: scale(1);
         }
 
-        .lightbox-content img, .lightbox-content iframe {
+        .lightbox-content img, .lightbox-content video {
             display: block;
             max-width: 100%;
             max-height: 90vh;
             object-fit: contain;
         }
         
-        .lightbox-content iframe {
+        .lightbox-content video {
             width: 80vw;
-            height: calc(80vw / 16 * 9); /* 16:9 Aspect Ratio */
+            height: calc(80vw / 16 * 9);
             max-height: 80vh;
             border: none;
         }
@@ -267,17 +268,19 @@
             </div>
 
             <div class="project-grid">
-                
+
                 <!-- Aviation Projects -->
-                <div class="project-card" data-category="aviation" data-type="image" data-source="https://i.gyazo.com/0b1f55bfbdcecad1620d83f2ddbc9275.jpg">
-                    <div class="project-image" style="background-image: url('https://i.gyazo.com/0b1f55bfbdcecad1620d83f2ddbc9275.jpg')"></div>
+                <div class="project-card" data-category="aviation" data-type="video" data-source="assets/CateringSystem.mp4">
+                    <div class="project-image"> <!-- For videos, you could create a thumbnail e.g., CateringSystem.png and put it here -->
+                        <div class="play-icon"></div>
+                    </div>
                     <div class="project-info">
                         <h3>Catering System</h3>
                         <p>Aviation-Based</p>
                     </div>
                 </div>
-                <div class="project-card" data-category="aviation" data-type="video" data-source="https://streamable.com/e/4jrnqq">
-                     <div class="project-image" style="background-image: url('https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png');">
+                <div class="project-card" data-category="aviation" data-type="video" data-source="assets/StaffTopbarSystem.mp4">
+                     <div class="project-image">
                         <div class="play-icon"></div>
                     </div>
                     <div class="project-info">
@@ -287,8 +290,8 @@
                 </div>
 
                 <!-- Nautical Projects -->
-                <div class="project-card" data-category="nautical" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418841939763200/955272682159603782/ca994c47b5b7360848e152d4f1b67c88.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418841939763200/955272682159603782/ca994c47b5b7360848e152d4f1b67c88.png')"></div>
+                <div class="project-card" data-category="nautical" data-type="image" data-source="assets/ShipMovementSystem.png">
+                    <div class="project-image" style="background-image: url('assets/ShipMovementSystem.png')"></div>
                     <div class="project-info">
                         <h3>Ship Movement System</h3>
                         <p>Nautical</p>
@@ -296,36 +299,29 @@
                 </div>
 
                 <!-- Roleplay Projects -->
-                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955269922861244476/f42949dd33bc23ae9a00b9a9bfd4e2d2.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955269922861244476/f42949dd33bc23ae9a00b9a9bfd4e2d2.png')"></div>
+                <div class="project-card" data-category="roleplay" data-type="image" data-source="assets/PoliceDispatchSystem.png">
+                    <div class="project-image" style="background-image: url('assets/PoliceDispatchSystem.png')"></div>
                     <div class="project-info">
                         <h3>Police Dispatch System</h3>
                         <p>Roleplay</p>
                     </div>
                 </div>
-                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955270176029437972/cff63878be58e991a8b08ef1a77e5829.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955270176029437972/cff63878be58e991a8b08ef1a77e5829.png')"></div>
+                <div class="project-card" data-category="roleplay" data-type="image" data-source="assets/PoliceMDTCAD.png">
+                    <div class="project-image" style="background-image: url('assets/PoliceMDTCAD.png')"></div>
                     <div class="project-info">
                         <h3>Police MDT/CAD</h3>
                         <p>Roleplay</p>
                     </div>
                 </div>
-                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955271293740130364/14865a66087521ad25d072d1dac91b1c.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955271293740130364/14865a66087521ad25d072d1dac91b1c.png')"></div>
-                    <div class="project-info">
-                        <h3>Restaurant Seating System</h3>
-                        <p>Roleplay</p>
-                    </div>
-                </div>
-                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955272092650197032/437824c4b764028baa23e1ddc79247aa.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955272092650197032/437824c4b764028baa23e1ddc79247aa.png')"></div>
+                <div class="project-card" data-category="roleplay" data-type="image" data-source="assets/CourtSystem.png">
+                    <div class="project-image" style="background-image: url('assets/CourtSystem.png')"></div>
                     <div class="project-info">
                         <h3>Court System</h3>
                         <p>Roleplay</p>
                     </div>
                 </div>
-                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955272154893664346/12eb3fe84a93fd676a9bf8f18b9dfbd3.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955272154893664346/12eb3fe84a93fd676a9bf8f18b9dfbd3.png')"></div>
+                <div class="project-card" data-category="roleplay" data-type="image" data-source="assets/CitationSystem.png">
+                    <div class="project-image" style="background-image: url('assets/CitationSystem.png')"></div>
                     <div class="project-info">
                         <h3>Citation System</h3>
                         <p>Roleplay</p>
@@ -333,22 +329,22 @@
                 </div>
 
                 <!-- Cafe Projects -->
-                <div class="project-card" data-category="cafe" data-type="image" data-source="https://cdn.discordapp.com/attachments/955269683391631370/955269737892413510/b21689a5d3fd1232330a246a8fdb5d56.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955269683391631370/955269737892413510/b21689a5d3fd1232330a246a8fdb5d56.png')"></div>
+                <div class="project-card" data-category="cafe" data-type="image" data-source="assets/KitchenOrderingSystem.png">
+                    <div class="project-image" style="background-image: url('assets/KitchenOrderingSystem.png')"></div>
                     <div class="project-info">
                         <h3>Kitchen & Ordering System</h3>
                         <p>Cafe</p>
                     </div>
                 </div>
-                <div class="project-card" data-category="cafe" data-type="image" data-source="https://cdn.discordapp.com/attachments/955269683391631370/955271722754519100/8817266fc0078fdc8cb1f9ca3428a442.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955269683391631370/955271722754519100/8817266fc0078fdc8cb1f9ca3428a442.png')"></div>
+                <div class="project-card" data-category="cafe" data-type="image" data-source="assets/TableReserveSystem.png">
+                    <div class="project-image" style="background-image: url('assets/TableReserveSystem.png')"></div>
                     <div class="project-info">
                         <h3>Table Reserving Panel</h3>
                         <p>Cafe</p>
                     </div>
                 </div>
-                <div class="project-card" data-category="cafe" data-type="image" data-source="https://cdn.discordapp.com/attachments/955269683391631370/955271939977523251/8eca7740eb8df4764dd21a265b0860bf.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955269683391631370/955271939977523251/8eca7740eb8df4764dd21a265b0860bf.png')"></div>
+                <div class="project-card" data-category="cafe" data-type="image" data-source="assets/CookingSystem.png">
+                    <div class="project-image" style="background-image: url('assets/CookingSystem.png')"></div>
                     <div class="project-info">
                         <h3>Cooking System</h3>
                         <p>Cafe</p>
@@ -356,22 +352,29 @@
                 </div>
                 
                 <!-- General/Other Projects -->
-                <div class="project-card" data-category="general" data-type="image" data-source="https://cdn.discordapp.com/attachments/955270109772005386/955270243683541112/cc090683f5ee4e75cdcdc8c70f1f89ba.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955270109772005386/955270243683541112/cc090683f5ee4e75cdcdc8c70f1f89ba.png')"></div>
+                 <div class="project-card" data-category="general" data-type="image" data-source="assets/ApplicationSystem.png">
+                    <div class="project-image" style="background-image: url('assets/ApplicationSystem.png')"></div>
                     <div class="project-info">
-                        <h3>Application System / Product Hub</h3>
+                        <h3>Application System</h3>
                         <p>General</p>
                     </div>
                 </div>
-                 <div class="project-card" data-category="general" data-type="image" data-source="https://cdn.discordapp.com/attachments/955269539657023498/955272490039509082/Screenshot_2022-03-02_191233.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955269539657023498/955272490039509082/Screenshot_2022-03-02_191233.png')"></div>
+                 <div class="project-card" data-category="general" data-type="image" data-source="assets/ProductHubSystem.png">
+                    <div class="project-image" style="background-image: url('assets/ProductHubSystem.png')"></div>
+                    <div class="project-info">
+                        <h3>Product Hub</h3>
+                        <p>General</p>
+                    </div>
+                </div>
+                 <div class="project-card" data-category="general" data-type="image" data-source="assets/GameStaffManagementSystem.png">
+                    <div class="project-image" style="background-image: url('assets/GameStaffManagementSystem.png')"></div>
                     <div class="project-info">
                         <h3>Game/Staff Management</h3>
                         <p>General</p>
                     </div>
                 </div>
-                 <div class="project-card" data-category="general" data-type="image" data-source="https://cdn.discordapp.com/attachments/1376411339072868534/1377387961036963931/image.png">
-                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/1376411339072868534/1377387961036963931/image.png')"></div>
+                 <div class="project-card" data-category="general" data-type="image" data-source="assets/SchoolManagementSystem.png">
+                    <div class="project-image" style="background-image: url('assets/SchoolManagementSystem.png')"></div>
                     <div class="project-info">
                         <h3>School Management Website</h3>
                         <p>General</p>
@@ -404,7 +407,6 @@
 
             // --- FILTERING LOGIC ---
             
-            // Function to filter cards
             const filterCards = (filter) => {
                 projectCards.forEach(card => {
                     const category = card.dataset.category;
@@ -416,45 +418,36 @@
                 });
             };
 
-            // Add click event to filter buttons
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    // Update active button
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
-                    
-                    // Filter the cards
                     const filter = button.dataset.filter;
                     filterCards(filter);
                 });
             });
 
-            // Initially show all cards
             filterCards('all');
 
             // --- LIGHTBOX LOGIC ---
 
-            // Function to open the lightbox
             const openLightbox = (type, source) => {
                 let content = '';
                 if (type === 'image') {
                     content = `<img src="${source}" alt="Project Image">`;
                 } else if (type === 'video') {
-                    // Use the embed URL for Streamable
-                    content = `<iframe src="${source}?autoplay=1&loop=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+                    content = `<video src="${source}" controls autoplay muted loop></video>`;
                 }
                 
                 lightboxContent.innerHTML = content;
                 lightbox.classList.add('show');
             };
 
-            // Function to close the lightbox
             const closeLightbox = () => {
                 lightbox.classList.remove('show');
                 lightboxContent.innerHTML = ''; // Clear content to stop videos
             };
             
-            // Add click event to project cards
             projectCards.forEach(card => {
                 card.addEventListener('click', () => {
                     const type = card.dataset.type;
@@ -463,7 +456,6 @@
                 });
             });
 
-            // Add click event to close button and lightbox background
             lightboxClose.addEventListener('click', closeLightbox);
             lightbox.addEventListener('click', (e) => {
                 if (e.target === lightbox) {
@@ -471,7 +463,6 @@
                 }
             });
             
-            // Close lightbox with Escape key
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     closeLightbox();
