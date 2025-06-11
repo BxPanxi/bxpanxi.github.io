@@ -60,7 +60,6 @@
             color: var(--secondary-text-color);
         }
         
-        /* Filter Buttons */
         .filter-buttons {
             display: flex;
             justify-content: center;
@@ -87,7 +86,6 @@
             border-color: var(--primary-color);
         }
 
-        /* Project Grid */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -103,7 +101,7 @@
             transform: translateY(0);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         .project-card.show {
@@ -121,7 +119,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
-            background-color: #333; /* Placeholder for missing thumbnail */
+            background-color: #333;
         }
         
         .project-card .project-image .play-icon {
@@ -227,7 +225,6 @@
             line-height: 1;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 2rem;
@@ -383,11 +380,9 @@
         </footer>
     </div>
 
-    <!-- Lightbox Structure -->
     <div class="lightbox" id="lightbox">
         <span class="lightbox-close">×</span>
         <div class="lightbox-content" id="lightbox-content">
-            <!-- Content will be injected here by JavaScript -->
         </div>
     </div>
 
@@ -399,8 +394,6 @@
             const lightboxContent = document.getElementById('lightbox-content');
             const lightboxClose = document.querySelector('.lightbox-close');
 
-            // --- FILTERING LOGIC ---
-            
             const filterCards = (filter) => {
                 projectCards.forEach(card => {
                     const category = card.dataset.category;
@@ -423,8 +416,6 @@
 
             filterCards('all');
 
-            // --- LIGHTBOX LOGIC ---
-
             const openLightbox = (type, source) => {
                 let content = '';
                 if (type === 'image') {
@@ -439,7 +430,7 @@
 
             const closeLightbox = () => {
                 lightbox.classList.remove('show');
-                lightboxContent.innerHTML = ''; // Clear content to stop videos
+                lightboxContent.innerHTML = '';
             };
             
             projectCards.forEach(card => {
