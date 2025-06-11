@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name | Developer Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #00aaff;
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --secondary-text-color: #a0a0a0;
+            --border-color: #2c2c2c;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        header .subtitle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        header p {
+            max-width: 600px;
+            margin: 1rem auto 0;
+            color: var(--secondary-text-color);
+        }
+        
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 2rem 0;
+        }
+
+        .filter-btn {
+            background-color: var(--surface-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Project Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 24px var(--shadow-color);
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            display: none; /* Hidden by default */
+        }
+
+        .project-card.show {
+            display: block;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--shadow-color);
+        }
+
+        .project-card .project-image {
+            width: 100%;
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .project-card .project-image .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover .project-image .play-icon {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .project-card .project-image .play-icon::after {
+            content: '▶';
+            color: white;
+            font-size: 24px;
+            margin-left: 4px;
+        }
+
+
+        .project-card .project-info {
+            padding: 1.25rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.25rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card p {
+            color: var(--secondary-text-color);
+            font-size: 0.95rem;
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .lightbox.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            background-color: var(--background-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        
+        .lightbox.show .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-content img, .lightbox-content iframe {
+            display: block;
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+        
+        .lightbox-content iframe {
+            width: 80vw;
+            height: calc(80vw / 16 * 9); /* 16:9 Aspect Ratio */
+            max-height: 80vh;
+            border: none;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--secondary-text-color);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Your Name</h1>
+            <p class="subtitle">Full-Stack Developer & UI/UX Designer</p>
+            <p>
+                Welcome to my portfolio. I specialize in creating modern, responsive, and user-friendly web applications. Below is a selection of my recent work.
+            </p>
+        </header>
+
+        <main>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="aviation">Aviation</button>
+                <button class="filter-btn" data-filter="nautical">Nautical</button>
+                <button class="filter-btn" data-filter="roleplay">Roleplay</button>
+                <button class="filter-btn" data-filter="cafe">Cafe</button>
+                <button class="filter-btn" data-filter="general">General</button>
+            </div>
+
+            <div class="project-grid">
+                
+                <!-- Aviation Projects -->
+                <div class="project-card" data-category="aviation" data-type="image" data-source="https://i.gyazo.com/0b1f55bfbdcecad1620d83f2ddbc9275.jpg">
+                    <div class="project-image" style="background-image: url('https://i.gyazo.com/0b1f55bfbdcecad1620d83f2ddbc9275.jpg')"></div>
+                    <div class="project-info">
+                        <h3>Catering System</h3>
+                        <p>Aviation-Based</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="aviation" data-type="video" data-source="https://streamable.com/e/4jrnqq">
+                     <div class="project-image" style="background-image: url('https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png');">
+                        <div class="play-icon"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Staff Topbar System</h3>
+                        <p>Aviation-Based</p>
+                    </div>
+                </div>
+
+                <!-- Nautical Projects -->
+                <div class="project-card" data-category="nautical" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418841939763200/955272682159603782/ca994c47b5b7360848e152d4f1b67c88.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418841939763200/955272682159603782/ca994c47b5b7360848e152d4f1b67c88.png')"></div>
+                    <div class="project-info">
+                        <h3>Ship Movement System</h3>
+                        <p>Nautical</p>
+                    </div>
+                </div>
+
+                <!-- Roleplay Projects -->
+                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955269922861244476/f42949dd33bc23ae9a00b9a9bfd4e2d2.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955269922861244476/f42949dd33bc23ae9a00b9a9bfd4e2d2.png')"></div>
+                    <div class="project-info">
+                        <h3>Police Dispatch System</h3>
+                        <p>Roleplay</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955270176029437972/cff63878be58e991a8b08ef1a77e5829.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955270176029437972/cff63878be58e991a8b08ef1a77e5829.png')"></div>
+                    <div class="project-info">
+                        <h3>Police MDT/CAD</h3>
+                        <p>Roleplay</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955271293740130364/14865a66087521ad25d072d1dac91b1c.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955271293740130364/14865a66087521ad25d072d1dac91b1c.png')"></div>
+                    <div class="project-info">
+                        <h3>Restaurant Seating System</h3>
+                        <p>Roleplay</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955272092650197032/437824c4b764028baa23e1ddc79247aa.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955272092650197032/437824c4b764028baa23e1ddc79247aa.png')"></div>
+                    <div class="project-info">
+                        <h3>Court System</h3>
+                        <p>Roleplay</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="roleplay" data-type="image" data-source="https://cdn.discordapp.com/attachments/954418877461323966/955272154893664346/12eb3fe84a93fd676a9bf8f18b9dfbd3.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/954418877461323966/955272154893664346/12eb3fe84a93fd676a9bf8f18b9dfbd3.png')"></div>
+                    <div class="project-info">
+                        <h3>Citation System</h3>
+                        <p>Roleplay</p>
+                    </div>
+                </div>
+
+                <!-- Cafe Projects -->
+                <div class="project-card" data-category="cafe" data-type="image" data-source="https://cdn.discordapp.com/attachments/955269683391631370/955269737892413510/b21689a5d3fd1232330a246a8fdb5d56.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955269683391631370/955269737892413510/b21689a5d3fd1232330a246a8fdb5d56.png')"></div>
+                    <div class="project-info">
+                        <h3>Kitchen & Ordering System</h3>
+                        <p>Cafe</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="cafe" data-type="image" data-source="https://cdn.discordapp.com/attachments/955269683391631370/955271722754519100/8817266fc0078fdc8cb1f9ca3428a442.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955269683391631370/955271722754519100/8817266fc0078fdc8cb1f9ca3428a442.png')"></div>
+                    <div class="project-info">
+                        <h3>Table Reserving Panel</h3>
+                        <p>Cafe</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="cafe" data-type="image" data-source="https://cdn.discordapp.com/attachments/955269683391631370/955271939977523251/8eca7740eb8df4764dd21a265b0860bf.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955269683391631370/955271939977523251/8eca7740eb8df4764dd21a265b0860bf.png')"></div>
+                    <div class="project-info">
+                        <h3>Cooking System</h3>
+                        <p>Cafe</p>
+                    </div>
+                </div>
+                
+                <!-- General/Other Projects -->
+                <div class="project-card" data-category="general" data-type="image" data-source="https://cdn.discordapp.com/attachments/955270109772005386/955270243683541112/cc090683f5ee4e75cdcdc8c70f1f89ba.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955270109772005386/955270243683541112/cc090683f5ee4e75cdcdc8c70f1f89ba.png')"></div>
+                    <div class="project-info">
+                        <h3>Application System / Product Hub</h3>
+                        <p>General</p>
+                    </div>
+                </div>
+                 <div class="project-card" data-category="general" data-type="image" data-source="https://cdn.discordapp.com/attachments/955269539657023498/955272490039509082/Screenshot_2022-03-02_191233.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/955269539657023498/955272490039509082/Screenshot_2022-03-02_191233.png')"></div>
+                    <div class="project-info">
+                        <h3>Game/Staff Management</h3>
+                        <p>General</p>
+                    </div>
+                </div>
+                 <div class="project-card" data-category="general" data-type="image" data-source="https://cdn.discordapp.com/attachments/1376411339072868534/1377387961036963931/image.png">
+                    <div class="project-image" style="background-image: url('https://cdn.discordapp.com/attachments/1376411339072868534/1377387961036963931/image.png')"></div>
+                    <div class="project-info">
+                        <h3>School Management Website</h3>
+                        <p>General</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2024 Your Name. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Lightbox Structure -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">×</span>
+        <div class="lightbox-content" id="lightbox-content">
+            <!-- Content will be injected here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxContent = document.getElementById('lightbox-content');
+            const lightboxClose = document.querySelector('.lightbox-close');
+
+            // --- FILTERING LOGIC ---
+            
+            // Function to filter cards
+            const filterCards = (filter) => {
+                projectCards.forEach(card => {
+                    const category = card.dataset.category;
+                    if (filter === 'all' || filter === category) {
+                        card.classList.add('show');
+                    } else {
+                        card.classList.remove('show');
+                    }
+                });
+            };
+
+            // Add click event to filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Filter the cards
+                    const filter = button.dataset.filter;
+                    filterCards(filter);
+                });
+            });
+
+            // Initially show all cards
+            filterCards('all');
+
+            // --- LIGHTBOX LOGIC ---
+
+            // Function to open the lightbox
+            const openLightbox = (type, source) => {
+                let content = '';
+                if (type === 'image') {
+                    content = `<img src="${source}" alt="Project Image">`;
+                } else if (type === 'video') {
+                    // Use the embed URL for Streamable
+                    content = `<iframe src="${source}?autoplay=1&loop=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+                }
+                
+                lightboxContent.innerHTML = content;
+                lightbox.classList.add('show');
+            };
+
+            // Function to close the lightbox
+            const closeLightbox = () => {
+                lightbox.classList.remove('show');
+                lightboxContent.innerHTML = ''; // Clear content to stop videos
+            };
+            
+            // Add click event to project cards
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const type = card.dataset.type;
+                    const source = card.dataset.source;
+                    openLightbox(type, source);
+                });
+            });
+
+            // Add click event to close button and lightbox background
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+            
+            // Close lightbox with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
